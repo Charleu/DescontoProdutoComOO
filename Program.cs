@@ -2,6 +2,8 @@
 
 namespace DescontoProdutoOO
 {
+    using System;
+
     class Program
     {
         static void Main(string[] args)
@@ -13,13 +15,9 @@ namespace DescontoProdutoOO
             double precoProduto = double.Parse(Console.ReadLine());
             Console.WriteLine("Informe a quantidade do produto:");
             int quantidadeProduto = int.Parse(Console.ReadLine());
-
             Produto produto = new Produto(nomeProduto, precoProduto, quantidadeProduto);
-
             Console.WriteLine(sep);
-            Console.WriteLine($"Valor total: {produto.PrecoTotal.ToString("C")}");
-            Console.WriteLine(sep);
-            Console.WriteLine($"Desconto: {produto.Desconto.ToString("C")}");
+            produto.ImprimirDetalhes();
             Console.WriteLine(sep);
         }
     }
