@@ -2,52 +2,53 @@
 
 namespace DescontoProdutoOO
 {
-    class Produto
+    public class Produto
     {
-        public string Nome;
-        public double PrecoUnitario;
-        public int Quantidade;
+        private string _nome;
+        private double _preco;
+        public int Quantidade { get; set; }
 
-        public Produto(string nome, double precoUnitario, int quantidade)
+        public string Nome
         {
-            Nome = nome;
-            PrecoUnitario = precoUnitario;
-            Quantidade = quantidade;
+            get
+            {
+                return _nome;
+            }
+            set
+            {
+                _nome = value;
+            }
         }
 
         public double PrecoTotal()
         {
-            double desconto = CalcularDesconto(Quantidade);
-            return PrecoUnitario * Quantidade * (1 - desconto);
+            double precoTotal = _preco * Quantidade;
+            double desconto = CalcularDesconto();
+            return precoTotal * (1 - desconto);
         }
 
-        public double Desconto()
+        private double CalcularDesconto()
         {
-            return CalcularDesconto(Quantidade);
+            if (Quantidade > 50)
+                return 0.25;
+            else if (Quantidade > 20)
+                return 0.2;
+            else if (Quantidade > 10)
+                return 0.1;
+            else
+                return 0;
         }
 
-        public void ImprimirPrecoComDesconto()
+        public Produto(string nome, double preco, int quantidade)
         {
-            Console.WriteLine($"Nome: {Nome}");
-            Console.WriteLine($"Valor total: {PrecoTotal().ToString("C")}");
-            Console.WriteLine($"Desconto: {Desconto().ToString("P")}");
+            Nome = nome;
+            _preco = preco;
+            Quantidade = quantidade;
         }
 
         public override string ToString()
         {
-            return $"Nome: {Nome}\nPreço unitário: {PrecoUnitario.ToString("C")}\nQuantidade: {Quantidade}";
-        }
-
-        public static double CalcularDesconto(int quantidade)
-        {
-            if (quantidade > 50)
-                return 0.25;
-            else if (quantidade > 20)
-                return 0.2;
-            else if (quantidade > 10)
-                return 0.1;
-            else
-                return 0;
+            return $"Nome: {Nome}\nPreço unitário: {_preco.ToString("C")}\nQuantidade: {Quantidade}\nDesconto: {CalcularDesconto():P}\nValor total com desconto: {PrecoTotal().ToString("C")}";
         }
     }
 }
